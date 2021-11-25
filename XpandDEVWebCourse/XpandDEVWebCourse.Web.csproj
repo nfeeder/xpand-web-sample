@@ -8,12 +8,17 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.20" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.20" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\XpandDEVWebCourse.Business\XpandDEVWebCourse.Business.csproj" />
     <ProjectReference Include="..\XpandDEVWebCourse.Data\XpandDEVWebCourse.Data.csproj" />
     <ProjectReference Include="..\XpandDEVWebCourse.Models\XpandDEVWebCourse.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Images\" />
   </ItemGroup>
 
 </Project>

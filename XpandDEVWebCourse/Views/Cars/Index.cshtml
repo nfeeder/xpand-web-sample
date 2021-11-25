@@ -1,4 +1,5 @@
 ﻿@model List<CarViewModel>
+ 
 
 <h2>Cars:</h2>
 
@@ -12,6 +13,24 @@
 <br />
 
 <h2>Create a new car:</h2>
-
-<form>
-</form>
+<div class="cars-create">
+    <form asp-action="NewCar">
+        <div class="row">
+            <div class="col-12 col-md-3">
+                <label class="col-form-label">Model</label>
+                <input type="text" class="form-control" id="Model" name="Model">
+            </div>
+            <div class="col-12 col-md-3">
+                <label class="col-form-label">External Id</label>
+                <input type="text" class="form-control" id="ExternalId" name="ExternalId">
+            </div>
+            <div class="col-12 col-md-3">
+                <label class="col-form-label">Bolts</label>
+                <input type="text" class="form-control" id="NrBolts" name="NrBolts">
+            </div>
+            <div class="col-12 col-md-3">
+                <button type="submit" class="btn-cars" id="insert-car">Insert</button>
+            </div>
+        </div>
+    </form>
+</div>
