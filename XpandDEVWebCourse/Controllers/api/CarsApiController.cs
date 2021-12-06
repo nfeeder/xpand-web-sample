@@ -48,7 +48,7 @@ namespace XpandDEVWebCourse.Web.Controllers.api
             };
 
             var cars = await _carsService.NewCarAsync(carDto);
-
+            
             var result = await _carsService.GetAllCarsAsync();
 
             //return PartialView("_ListedCar", result);
