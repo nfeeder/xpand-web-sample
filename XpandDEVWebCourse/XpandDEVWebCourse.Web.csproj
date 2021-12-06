@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\XpandDEVWebCourse.API\XpandDEVWebCourse.API.csproj" />
     <ProjectReference Include="..\XpandDEVWebCourse.Business\XpandDEVWebCourse.Business.csproj" />
     <ProjectReference Include="..\XpandDEVWebCourse.Data\XpandDEVWebCourse.Data.csproj" />
     <ProjectReference Include="..\XpandDEVWebCourse.Models\XpandDEVWebCourse.Models.csproj" />

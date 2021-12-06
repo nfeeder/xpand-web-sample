@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\XpandDEVWebCourse.Business\XpandDEVWebCourse.Business.csproj" />
+    <ProjectReference Include="..\XpandDEVWebCourse.Data\XpandDEVWebCourse.Data.csproj" />
+    <ProjectReference Include="..\XpandDEVWebCourse.Models\XpandDEVWebCourse.Models.csproj" />
+  </ItemGroup>
+
+
+</Project>

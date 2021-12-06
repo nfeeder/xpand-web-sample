@@ -1,26 +1,24 @@
 ﻿@model CarViewModel
 
-<div class="row">
+<div class="row car-row" data-car-id="@Model.Id">
     <div class="col-12 col-md-2">
-        <label class="col-form-label">Model</label>
-        <input type="text" disabled class="form-control" id="Model" value="@Model.Model">
+        <input type="text" disabled class="form-control car-id" value="@Model.Id" id="car-id">
     </div>
     <div class="col-12 col-md-2">
-        <label class="col-form-label">External Id</label>
-        <input type="text" disabled class="form-control" id="ExternalId" value="@Model.ExternalId">
+        <input type="text" disabled class="form-control Model" id="Model" value="@Model.Model">
     </div>
     <div class="col-12 col-md-2">
-        <label class="col-form-label">Bolts</label>
-        <input type="text" disabled class="form-control" id="NrBolts" value="@Model.NrBolts">
+        <input type="text" disabled class="form-control ExternalId" id="ExternalId" value="@Model.ExternalId">
+    </div>
+    <div class="col-12 col-md-2">
+        <input type="text" disabled class="form-control NrBolts" id="NrBolts" value="@Model.NrBolts">
     </div>
     <div class="col-12 col-md-4">
-        <form asp-action="RemoveCar" asp-controller="Cars">
-            <input type="hidden" asp-for="Id" />
-            <button type="submit" id="delete-car" class="btn-cars">Delete</button>
-        </form>
-        <form asp-action="EditCar" asp-controller="Cars">
-            <input type="hidden" asp-for="Id" />
-            <button type="submit" id="edit-car" class="btn-cars">Edit</button>
-        </form>
+        <button type="button" id="delete-car" class="btn-cars delete-car">Delete</button>
+        <button type="button" id="edit-car" class="edit-car btn-cars">Edit</button>
+        <button type="button" hidden class="confirm-edit btn btn-cars" id="confirm-edit-car">Confirm</button>
+        <button type="button" hidden class="cancel-edit btn btn-cars" id="cancel-edit-car">Cancel</button>
     </div>
 </div>
+
+

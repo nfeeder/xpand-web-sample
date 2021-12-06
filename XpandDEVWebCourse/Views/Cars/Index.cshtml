@@ -1,17 +1,28 @@
 ﻿@model List<CarViewModel>
- 
+
 
 <h2>Cars:</h2>
-
-<div class="cars-list">
+<div class="row car">
+    <div class="col-12 col-md-2">
+        <label class="col-form-label">Id</label>
+    </div>
+    <div class="col-12 col-md-2">
+        <label class="col-form-label">Model</label>
+    </div>
+    <div class="col-12 col-md-2">
+        <label class="col-form-label">External Id</label>
+    </div>
+    <div class="col-12 col-md-2">
+        <label class="col-form-label">Bolts</label>
+    </div>
+</div>
+<div class="cars-list" id="cars-list">
     @foreach (var c in Model)
     {
         <partial name="_ListedCar" model="c" />
     }
 </div>
-
 <br />
-
 <h2>Create a new car:</h2>
 <div class="cars-create">
     <form asp-action="NewCar">
@@ -28,9 +39,123 @@
                 <label class="col-form-label">Bolts</label>
                 <input type="text" class="form-control" id="NrBolts" name="NrBolts">
             </div>
+        </div>
+        <div class="row">
             <div class="col-12 col-md-3">
                 <button type="submit" class="btn-cars" id="insert-car">Insert</button>
             </div>
         </div>
     </form>
 </div>
+@section scripts{
+    <script>
+        $(function () {
+            $("#insert-car").click(function () {
+            addModel = $("#Model").val();
+            addBolts = $("#NrBolts").val();
+            addExternal = $("#ExternalId").val();
+            $.ajax({
+                type: "POST",
+                url:"@Url.Content("api/cars/NewCar")",
+                data: { Model: addModel, NrBolts: addBolts, ExternalId: addExternal},
+                dataType: "text",
+                success: function (msg) {
+                    $("#cars-list").append(msg);
+                },
+                error: function (req, status, error) {
+                    ErrorAlert("Car not inserted, please try again");
+                }
+            });
+        });
+    });
+
+    $("#cars-list").on('click','#delete-car', function(){
+        let parent = $(this).parents(".car-row");
+        let id = $(parent).data('car-id');
+       // alert(id);
+        if (confirm("Do you want to delete this row?")) {
+            DeleteCarConfirmed(id, parent);
+        }
+    });
+
+        function DeleteCarConfirmed(id, parent) {
+        $.ajax({
+            type: "GET",
+            // external api url: "@Url.Content("WeatherForecast/api_DeleteCar")",
+            url:"@Url.Content("api/cars/DeleteCar")",
+            data: {id: id},
+            dataType: "text",
+            success: function (msg) {
+                $(".car-row[data-car-id='"+id+"']").remove(msg);
+            },
+            //verificar não está a remover
+            error: function (req, status, error) {
+                ErrorAlert("Car removal error, please try again");
+            }
+        });
+        };
+
+        $("#cars-list").on('click', '#edit-car', function () {
+            let parent = $(this).parents(".car-row");
+            let id = $(parent).data('car-id');
+           // alert(id);
+            let inputExternal = parent[0].querySelector('.ExternalId');
+            let inputModel = parent[0].querySelector('.Model');
+            let inputBolts = parent[0].querySelector('.NrBolts');
+            let oldExternal = inputExternal.value;
+            let oldModel = inputModel.value;
+            let oldBolts = inputBolts.value;
+            inputExternal.disabled = false;
+            inputModel.disabled = false;
+            inputBolts.disabled = false;
+
+            let confirmEdit = parent[0].querySelector('.confirm-edit');
+            let cancelEdit = parent[0].querySelector('.cancel-edit');
+            confirmEdit.hidden = false;
+            cancelEdit.hidden = false;
+        $(cancelEdit).click(function () {
+           // alert("teste cancel");
+        inputModel.value = oldModel;
+        inputBolts.value = oldBolts;
+        inputExternal.value = oldExternal;
+        CloseEditMode();
+        });
+        $(confirmEdit).click(function () {
+           // alert("teste confirm");
+        newModel = inputModel.value;
+        newBolts = inputBolts.value;
+        newExternal = inputExternal.value;
+           // alert(id+ " "+ newModel+" "+newBolts+" "+newExternal);
+            $.ajax({
+            type: "GET",
+            url:"@Url.Content("api/cars/UpdateCar")",
+            data: {id: id, Model: newModel, NrBolts: newBolts, ExternalId: newExternal},
+            dataType: "text",
+            success: function (msg) {
+                CloseEditMode();
+            },
+            error: function (req, status, error) {
+                ErrorAlert("Car edit error, please try again");
+            }
+        });
+        });
+            function CloseEditMode() {
+                inputModel.disabled = true;
+                inputBolts.disabled = true;
+                inputExternal.disabled = true;
+                confirmEdit.hidden = true;
+                cancelEdit.hidden = true;
+            }
+        });
+
+        
+
+        function ErrorAlert(message) {
+            alert({
+                type: "error",
+                title: "Error",
+                message: message,
+            })
+        }
+    </script>
+}
