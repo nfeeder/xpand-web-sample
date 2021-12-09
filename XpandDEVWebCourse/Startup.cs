@@ -31,6 +31,8 @@ namespace XpandDEVWebCourse
             services.AddDbContext<CourseDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DbConnectionString"],b => b.MigrationsAssembly("XpandDEVWebCourse.Data")));
 
             services.AddTransient<ICarsService, CarsService>();
+
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,7 +52,7 @@ namespace XpandDEVWebCourse
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -58,6 +60,7 @@ namespace XpandDEVWebCourse
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
